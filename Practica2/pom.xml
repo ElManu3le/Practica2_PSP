@@ -4,15 +4,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-<<<<<<< HEAD
-  <groupId>Practica2_PSP</groupId>
-=======
-  <groupId>Practica2PSP</groupId>
->>>>>>> a3677b095581b051af57327b4aee75ea66f0b8c4
-  <artifactId>Practica2</artifactId>
-  <version>1.4</version>
+  <groupId>Principal</groupId>
+  <artifactId>PSP-Practica2</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
 
-  <name>Practica2</name>
+  <name>PSP-Practica2</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
