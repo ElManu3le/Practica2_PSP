@@ -7,7 +7,7 @@ public class Consumidor extends Thread {
     private BlockingQueue<Integer> sharedQueue;
 
     public Consumidor(BlockingQueue<Integer> aQueue) {
-        super("Consumidor");
+        super("Consumidor -");
         this.sharedQueue = aQueue;
     }
 
@@ -15,7 +15,7 @@ public class Consumidor extends Thread {
         try {
             while (true) {
                 Integer item = sharedQueue.take();
-                System.out.println(getName() + " consume " + item);
+                System.out.println(getName() + " consume el numero =>" + item);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -4,18 +4,19 @@ import java.util.concurrent.BlockingQueue;
 
 public class Productor extends Thread {
 
-    private BlockingQueue<Integer> sharedQueue;
+    private BlockingQueue<Integer> sharedQueue;//BloquingQueue tiene 4 metodos para el funcionamiento de la cola
 
-    public Productor(BlockingQueue<Integer> aQueue) {
-        super("Productor");
+    public Productor(BlockingQueue<Integer> aQueue) { //Contructor de la clase Productor que incializa el objeto y establece los valores 
+        super("Productor -");
         this.sharedQueue = aQueue;
     }
 
-    public void run() { // no synchronization needed
-        for (int i = 0; i < 100; i++) {
+    public void run() {
+        for (int i = 1; i <= 100; i++) {
             try {
-                System.out.println(getName() + " produce " + i);
-                sharedQueue.put(i);
+                System.out.println(getName() + " produce el numero => " + i);
+                sharedQueue.put(i);//El put introduce el nuevo hilo a la espera de que la cola tenga espacio para poder introducirlo 
+                //Ademas es un metodo que pertenece a BlockingQueue 
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
