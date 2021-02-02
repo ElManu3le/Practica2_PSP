@@ -2,6 +2,9 @@ package Practica2PSP;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+
+import main.java.Practica2PSP.ConsumidorWhile;
+
 import java.util.Scanner;
 
 public class App {
@@ -9,10 +12,10 @@ public class App {
     public static void main(String[] args) {
         BlockingQueue<Integer> cola = new ArrayBlockingQueue<>(4);
         Productor productor = new Productor(cola);
-        Consumidor cconsumidor = new Consumidor(cola);
+        ConsumidorWhile consumidor = new ConsumidorWhile(cola);
 
         productor.start();
-        cconsumidor.start();
+        consumidor.start();
 
     }
 

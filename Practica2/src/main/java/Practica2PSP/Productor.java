@@ -7,7 +7,7 @@ public class Productor extends Thread {
 
     private int productorescant;
 
-    private BlockingQueue<Integer> sharedQueue;// BloquingQueue tiene 4 metodos para el funcionamiento de la cola
+    private BlockingQueue<Integer> sharedQueue = null;// BloquingQueue tiene 4 metodos para el funcionamiento de la cola
 
     public Productor(BlockingQueue<Integer> aQueue) { // Contructor de la clase Productor que incializa el objeto y
                                                       // establece los valores
