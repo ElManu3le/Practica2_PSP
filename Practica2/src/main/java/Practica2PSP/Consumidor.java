@@ -13,21 +13,17 @@ public class Consumidor extends Thread {
     }
 
     public void run() {
-        for (int i = 1; i <= 80; i++) {
+
+        while (true) {
             try {
                 Integer item = sharedQueue.take();
-                System.out.println("Se consume el producto numero => " + item);
-                
+                System.out.println("Se consume el producto => " + item);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
         }
-
-       /* while (true) {
-            
-        }*/
-        
 
     }
 
