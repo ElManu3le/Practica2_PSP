@@ -4,38 +4,36 @@ import java.util.ArrayList;
 
 public class Monitor {
 
-    private int capacidadmaxima = 10;
-    ArrayList<Integer> queueArrayList;
+    private ArrayList<Integer> listaDeElementos;
+	private int maxElementos;
 
-    public synchronized void moarElements(int listaQueue) {
-        while (queueArrayList.size() == capacidadmaxima) {
-            try {
-                wait(100);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println(e.getLocalizedMessage());
-            }
+	public Monitor() {
+		this.listaDeElementos = new ArrayList<Integer>();
+		this.maxElementos = 4;
+	}
 
-        }
-        queueArrayList.add(listaQueue);
-        notifyAll();
+	public synchronized void incrementar(int elemento) {
+		while (this.listaDeElementos.size() == maxElementos) {
+			try {
+				wait();
+			} catch (InterruptedException ie) {
+				ie.printStackTrace();
+			}
+		}
+		this.listaDeElementos.add(elemento);
+		notify();
+	}
 
-    }
-
-    public synchronized int menorElements() {
-        while (queueArrayList.size() == 0) {
-            try {
-                wait(100);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println(e.getLocalizedMessage());
-            }
-
-        }
-        
-        notifyAll();
-        return queueArrayList.remove(queueArrayList.size() - 1);
-
-    }
+	public synchronized int decrementar() {
+		while (this.listaDeElementos.size() == 0) {
+			try {
+				wait();
+			} catch (InterruptedException ie) {
+				ie.printStackTrace();
+			}
+		}
+		notify();
+		return this.listaDeElementos.remove(this.listaDeElementos.size() - 1);
+	}
 
 }

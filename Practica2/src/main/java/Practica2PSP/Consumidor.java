@@ -2,37 +2,24 @@ package Practica2PSP;
 
 import java.util.concurrent.BlockingQueue;
 import Practica2PSP.Productor;
+import main.java.Practica2PSP.Leer;
 import main.java.Practica2PSP.Monitor;
-
-import java.util.Scanner;
 
 public class Consumidor extends Thread {
 
-    private int idConsumidor;
-    private Monitor monitor;
+    private int id;
+    private Monitor miMonitor;
 
-    public Consumidor(Monitor monitor) {
-        this.monitor = monitor;
-
+    public Consumidor(int id, Monitor miMonitor) {
+        this.id = id;
+        this.miMonitor = miMonitor;
     }
 
+    @Override
     public void run() {
-
-        System.out.print("¿Cuantos productores quieres?");
-        idConsumidor = Leer.pedirEnteroValidar();
-        
-
-        for (int i = 0; i < idConsumidor; i++) {
-            try {
-
-                monitor.menorElements();
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
+        for (int i = 0; i < 100; i++) {
+            System.out.println("Soy el consumidor " + id + " y voy a consumir " + miMonitor.decrementar());
         }
-
     }
 
 }
