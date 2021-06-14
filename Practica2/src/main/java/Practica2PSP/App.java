@@ -9,8 +9,8 @@ import main.java.Practica2PSP.Monitor;
 
 public class App {
 
-    private final static int pt = 20;
-    private final static int ct = 15;
+    private final static int pt = 10;
+    private final static int ct = 10;
 
     public static void main(String[] args) throws InterruptedException {
 
