@@ -1,39 +1,36 @@
 package Practica2PSP;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-
-import main.java.Practica2PSP.Monitor;
+import java.util.*;
 
 public class App {
 
-    private final static int pt = 10;
-    private final static int ct = 10;
+    static Monitor miMonitor;
+    static final int PRODUCTOR_NUM = 100;
+    static final int CONSUMIDOR_NUM = 100;
+    static final int VUELTAS = 100;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
-        Monitor miMonitor = new Monitor();
-        List<Productor> miProductor = new ArrayList<Productor>();
-        List<Consumidor> miConsumidor = new ArrayList<Consumidor>();
+        final Monitor miMonitor = new Monitor(10);
+        List<Productor> miProductor = new ArrayList<>();
+        List<Consumidor> miConsumidor = new ArrayList<>();
 
-        for (int i = 0; i < pt; i++) {
-            miProductor.add(new Productor(i, miMonitor));
+        for (int i = 0; i < CONSUMIDOR_NUM; i++) {
+            miConsumidor.add(new Consumidor(i, miMonitor, VUELTAS));
         }
-
-        for (int i = 0; i < ct; i++) {
-            miConsumidor.add(new Consumidor(i, miMonitor));
+        for (int i = 0; i < PRODUCTOR_NUM; i++) {
+            miProductor.add(new Productor(i, miMonitor, VUELTAS));
         }
 
         for (Consumidor c : miConsumidor) {
-            c.start();
+            c.run();
         }
 
         for (Productor p : miProductor) {
-            p.start();
+            p.run();
         }
 
+        //Los .join() no funcionan, debido a que se usan en los extends Thread 
         for (Consumidor c : miConsumidor) {
             try {
                 c.join();

@@ -1,39 +1,43 @@
 package main.java.Practica2PSP;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Monitor {
 
-    private ArrayList<Integer> listaDeElementos;
+    private List<Integer> listaDeElementos;
 	private int maxElementos;
 
-	public Monitor() {
-		this.listaDeElementos = new ArrayList<Integer>();
-		this.maxElementos = 4;
+	public Monitor(int capacidad) {
+		this.listaDeElementos = new ArrayList<Integer>(capacidad);
+		this.maxElementos = capacidad ;
 	}
 
-	public synchronized void incrementar(int elemento) {
-		while (this.listaDeElementos.size() == maxElementos) {
+	public synchronized void producir(Integer data, int id) {
+		while (this.listaDeElementos.size() > maxElementos) {
 			try {
 				wait();
 			} catch (InterruptedException ie) {
 				ie.printStackTrace();
 			}
 		}
-		this.listaDeElementos.add(elemento);
-		notify();
+		listaDeElementos.add(id);
+		notifyAll();
 	}
 
-	public synchronized int decrementar() {
-		while (this.listaDeElementos.size() == 0) {
+	public synchronized int consumir(int id) {
+		while (this.listaDeElementos.size() <= 0) {
 			try {
 				wait();
-			} catch (InterruptedException ie) {
-				ie.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
-		notify();
-		return this.listaDeElementos.remove(this.listaDeElementos.size() - 1);
+		Integer n = listaDeElementos.remove(0);
+
+		notifyAll();
+		return n;
+		//return this.listaDeElementos.remove(this.listaDeElementos.size() - 1);
 	}
 
 }

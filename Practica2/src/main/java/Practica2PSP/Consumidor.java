@@ -5,21 +5,26 @@ import Practica2PSP.Productor;
 import main.java.Practica2PSP.Leer;
 import main.java.Practica2PSP.Monitor;
 
-public class Consumidor extends Thread {
+public class Consumidor implements Runnable {
 
+    int numLoops;
     private int id;
     private Monitor miMonitor;
 
-    public Consumidor(int id, Monitor miMonitor) {
+    
+
+    public Consumidor(int numLoops, int id, Monitor miMonitor) {
+        this.numLoops = numLoops;
         this.id = id;
         this.miMonitor = miMonitor;
     }
 
+
+
     @Override
     public void run() {
-        for (int i = 0; i < 100; i++) {
-            System.out.println("Soy el consumidor " + id + " y voy a consumir " + miMonitor.decrementar());
-        }
+        int data = miMonitor.consumir(id);
+        System.out.println("Consumidor [" + this.id + "] consume ==> " + data);
     }
 
 }
